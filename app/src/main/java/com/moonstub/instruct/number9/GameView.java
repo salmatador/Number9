@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.moonstub.instruct.number9.Framwork.GameActivity;
@@ -27,10 +28,13 @@ public class GameView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_abstract, container, false);
-        LinearLayout layout = (LinearLayout)root.findViewById(R.id.renderSurface);
+        FrameLayout layout = (FrameLayout)root.findViewById(R.id.game_fragment);
         GameActivity game = (GameActivity) getActivity();
+
+
         //layout.removeAllViews();
         //layout.removeAllViewsInLayout();
+
         layout.addView(game.getGameRenderer());
 
         return root;

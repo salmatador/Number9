@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import com.moonstub.instruct.number9.GameView;
 import com.moonstub.instruct.number9.R;
 
-public abstract class GameActivity extends AppCompatActivity implements TestGameFragment.OnResumeRender{
+public abstract class GameActivity extends AppCompatActivity implements UiGameFragment.OnResumeRender{
 
 
     //Property Objects
@@ -32,7 +32,12 @@ public abstract class GameActivity extends AppCompatActivity implements TestGame
     GameAudio mAudio;
 
     //Test Fragments
+    UiGameFragment mainMenuView;
     TestGameFragment testFragment;
+    TestGameFragment testFragment_2;
+    Fragment gameFragment;
+    Fragment UiFragment;
+    boolean testSwitch = false;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +57,11 @@ public abstract class GameActivity extends AppCompatActivity implements TestGame
         Fragment fragment = fm.findFragmentById(R.id.test);
 
         if(fragment == null) {
-            fragment = mGameView;
-            fm.beginTransaction().add(R.id.renderSurface, fragment).commit();
+            gameFragment = mGameView;
+            UiFragment = testFragment;
+            FragmentTransaction ft = fm.beginTransaction();
+                ft.add(R.id.game_fragment, gameFragment,"game");
+                            ft.commit();
         }
     }
 
@@ -67,6 +75,13 @@ public abstract class GameActivity extends AppCompatActivity implements TestGame
         mRenderer = new GameRenderer(this);
         mIO = new GameIO(this);
         mAudio = new GameAudio(this);
+
+        testFragment = new TestGameFragment();
+        testFragment.setGame(this);
+        testFragment.setLayout(R.layout.test);
+        testFragment_2 = new TestGameFragment();
+        testFragment.setGame(this);
+        testFragment_2.setLayout(R.layout.test_2);
 
     }
 
@@ -108,14 +123,22 @@ public abstract class GameActivity extends AppCompatActivity implements TestGame
     public void onBackPressed() {
         //override back pressed functionality
         if(mScreen.backPressed()) {
-            mRenderer.stop();
-            testFragment = new TestGameFragment();
-            testFragment.setGame(this);
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.detach(mGameView);
-            ft.replace(R.id.renderSurface, testFragment).commit();
-            //super.onBackPressed();
+            mScreen.pause();
+            Log.d("reRender","Back Pressed");
+            if(testSwitch) {
+                switchUiFragment(R.id.ui_fragment, testFragment);
+            } else {
+                switchUiFragment(R.id.ui_fragment, testFragment_2);
+            }
+
+            testSwitch = !testSwitch;
+
         }
+    }
+
+    public void switchUiFragment(int id, Fragment fragment){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(id, fragment, "ui").commit();
     }
 
     public GameGraphics getGameGraphics() {
@@ -132,12 +155,12 @@ public abstract class GameActivity extends AppCompatActivity implements TestGame
 
     public void reRender() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.detach(testFragment);
-        mGameView = new GameView();
-        ft.replace(R.id.renderSurface, mGameView).commit();
-        Log.d("reRender","REEEEEEEENNNNNDEDR");
-        mRenderer = new GameRenderer(this);
-        mRenderer.start();
+        if(testSwitch) {
+            ft.remove(testFragment_2).commit();
+        } else {
+            ft.remove(testFragment).commit();
+        }
+        mScreen.resume();
     }
 
     public void onRenderResume(){

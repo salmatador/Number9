@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/game_main_menu"
+                android:background="#00000000">
+
+    <SurfaceView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/main_menu_surfaceView"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:id="@+id/play_btn"
+        android:layout_alignTop="@+id/main_menu_surfaceView"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        android:id="@+id/settings_btn"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/high_scores"
+        android:id="@+id/high_score_btn"
+        android:layout_alignBottom="@+id/main_menu_surfaceView"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

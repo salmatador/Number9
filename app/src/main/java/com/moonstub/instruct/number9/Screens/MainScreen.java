@@ -1,20 +1,25 @@
 package com.moonstub.instruct.number9.Screens;
 
 import android.graphics.Color;
-import android.graphics.Point;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 
 import com.moonstub.instruct.number9.Framwork.GameActivity;
 import com.moonstub.instruct.number9.Framwork.GameGraphics;
 import com.moonstub.instruct.number9.Framwork.GameScreen;
 import com.moonstub.instruct.number9.Framwork.GameState;
+import com.moonstub.instruct.number9.Framwork.TestGameFragment;
+import com.moonstub.instruct.number9.Framwork.UiGameFragment;
 import com.moonstub.instruct.number9.GameBoard.MainBoard;
+import com.moonstub.instruct.number9.Menus.MainMenu;
+import com.moonstub.instruct.number9.R;
 
 import java.util.ArrayList;
 
 /**
  * Created by desktop on 5/28/2016.
  */
+
+//TODO Organize extra Ui elements
 public class MainScreen extends GameScreen {
 
     private static final int GRID_WIDTH = 19;
@@ -22,13 +27,24 @@ public class MainScreen extends GameScreen {
 
     private ArrayList<GameObjects> mPieces;
 
+    private MainMenu mMainMenu;
+
     public MainScreen(GameActivity game) {
         super(game);
     }
 
+
+    public void GameSetup() {
+        //noinspection ResourceType
+        //TODO Get Resource id from storageClass in GameActivity @Not Implemented
+        //mMainMenu = new MainMenu(getGame(), getGame().getApplicationContext().getResources().,"mainMenu");
+
+    }
     @Override
     public void initScreen() {
-        //TODO FIX
+
+        GameSetup();
+
         setGameBoard(new MainBoard(getGraphics().getWidth(),getGraphics().getHeight(),500));
         getGameBoard().setGraphics(getGraphics());
 
@@ -71,15 +87,16 @@ public class MainScreen extends GameScreen {
     @Override
     public void draw(float delta) {
         GameGraphics g = getGraphics();
-        g.clearScreen(Color.GRAY);
-        getGameBoard().draw(g);
+        if(gameState() != GameState.PAUSED) {
+            g.clearScreen(Color.GRAY);
+            getGameBoard().draw(g);
 
-        if(mPieces != null) {
-            for (GameObjects go : mPieces) {
-                go.draw(g, delta);
+            if (mPieces != null) {
+                for (GameObjects go : mPieces) {
+                    go.draw(g, delta);
+                }
             }
         }
-
 
     }
 
@@ -90,7 +107,7 @@ public class MainScreen extends GameScreen {
 
     @Override
     public void resume() {
-        setGameState(GameState.STARTING);
+        setGameState(GameState.STARTED);
     }
 
     @Override

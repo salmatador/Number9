@@ -1,6 +1,5 @@
 package com.moonstub.instruct.number9.Framwork;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,11 +13,9 @@ import android.widget.Toast;
 import com.moonstub.instruct.number9.R;
 
 /**
- * Created by desktop on 5/30/2016.
+ * Created by desktop on 5/31/2016.
  */
-
-//TODO make this abstract
-public class TestGameFragment extends Fragment {
+public class UiGameFragment extends Fragment{
 
     private OnResumeRender mCallback;
     private GameActivity mGame;
