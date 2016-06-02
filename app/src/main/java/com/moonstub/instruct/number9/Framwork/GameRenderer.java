@@ -56,14 +56,13 @@ public class GameRenderer extends SurfaceView implements Runnable {
         long timer  = System.currentTimeMillis();
 
         Thread currentThread = Thread.currentThread();
-        Log.d("Start Called", "Runn");
+
         while(isRunning && currentThread == mThread){
             long currentTime = System.currentTimeMillis();
             float delta = currentTime - timer;
             timer = currentTime;
 
             if (!mHolder.getSurface().isValid()) {
-                Log.d("Nothing to draw on","Wee Have a surface Error");
                 continue;
             }
 

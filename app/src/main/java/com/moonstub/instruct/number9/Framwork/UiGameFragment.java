@@ -44,7 +44,7 @@ public class UiGameFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(mLayout, container, false);
-        mButton = (Button)rootView.findViewById(R.id.button);
+        mButton = (Button)rootView.findViewById(R.id.play_btn);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +52,7 @@ public class UiGameFragment extends Fragment{
             }
         });
 
-        Toast.makeText(getContext(),"Fragment",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(),"Fragment",Toast.LENGTH_LONG).show();
         return rootView;
     }
 

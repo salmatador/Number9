@@ -1,12 +1,11 @@
 package com.moonstub.instruct.number9.Menus;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.moonstub.instruct.number9.Framwork.GameActivity;
 import com.moonstub.instruct.number9.Framwork.GameMenu;
 import com.moonstub.instruct.number9.Framwork.UiGameFragment;
-import com.moonstub.instruct.number9.Game;
+import com.moonstub.instruct.number9.R;
 
 /**
  * Created by desktop on 5/31/2016.
@@ -21,13 +20,13 @@ public class MainMenu extends GameMenu {
     public void setupMenu() {
         mGameMenu = new UiGameFragment();
         mGameMenu.setGame(mGame);
-        mGameMenu.setLayout(getId());
+        mGameMenu.setLayout(getLayout());
     }
 
     @Override
     public void bind(){
         FragmentTransaction ft = mGame.getSupportFragmentManager().beginTransaction();
-        ft.add(getId(),getFragment(),getTag()).commit();
+        ft.add(R.id.ui_fragment,getFragment(),getTag()).commit();
     }
 
     @Override

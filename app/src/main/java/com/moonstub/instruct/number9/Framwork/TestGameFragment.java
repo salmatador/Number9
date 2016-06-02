@@ -39,7 +39,7 @@ public class TestGameFragment extends Fragment {
         mGame = (GameActivity) activity;
         try { mCallback = (OnResumeRender) activity;}
         catch (ClassCastException e){
-            throw new ClassCastException(activity.toString() + " must implement OnRenderResume");
+            //throw new ClassCastException(activity.toString() + " must implement OnRenderResume");
         }
     }
 
